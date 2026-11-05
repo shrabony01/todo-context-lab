@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useReducer, useMemo, useCallback } from 'react';
-import type { Todo, TodoContextType } from '../types/todo';
+import React, { createContext, useContext, useReducer, useEffect, useMemo, useCallback } from 'react';
+import { Todo, TodoContextType } from '../types/todo';
 
 const TodoContext = createContext<TodoContextType | null>(null);
 
@@ -44,7 +44,24 @@ function todoReducer(state: Todo[], action: TodoAction): Todo[] {
 }
 
 export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [todos, dispatch] = useReducer(todoReducer, []);
+  // Rehydrate state from localStorage using the lazy initialization argument
+  const [todos, dispatch] = useReducer(todoReducer, [], () => {
+    try {
+      const cached = localStorage.getItem('app_todos');
+      return cached ? (JSON.parse(cached) as Todo[]) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Persist to localStorage whenever todos state changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('app_todos', JSON.stringify(todos));
+    } catch (err) {
+      console.error('Failed to sync todos with localStorage:', err);
+    }
+  }, [todos]);
 
   const addTodo = useCallback((text: string) => {
     if (!text.trim()) return;
