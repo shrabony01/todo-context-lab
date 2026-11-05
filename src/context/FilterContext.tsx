@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
-import { FilterType, FilterContextType } from '../types/todo';
+import type{ FilterType, FilterContextType } from '../types/todo';
 
 const FilterContext = createContext<FilterContextType | null>(null);
 
