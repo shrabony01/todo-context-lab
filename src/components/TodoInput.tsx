@@ -23,7 +23,7 @@ export const TodoInput: React.FC = () => {
         className="todo-input"
       />
       <button type="submit" className="todo-add-btn">
-        Add
+        Add Todo
       </button>
     </form>
   );

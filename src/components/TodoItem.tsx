@@ -59,11 +59,11 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       <div className="todo-actions">
         {!isEditing && (
           <button onClick={() => setIsEditing(true)} className="btn-edit">
-            Edit
+            Edit✏️
           </button>
         )}
         <button onClick={() => deleteTodo(todo.id)} className="btn-delete">
-          Delete
+          Delete🗑️
         </button>
       </div>
     </li>

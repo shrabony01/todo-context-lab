@@ -5,7 +5,7 @@ export const ThemeToggleButton: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button className="theme-toggle-btn" onClick={toggleTheme}>
+    <button className={`theme-toggle-btn ${theme}`} onClick={toggleTheme}>
       {theme === 'light' ? '🌙 Switch to Dark' : '☀️ Switch to Light'}
     </button>
   );

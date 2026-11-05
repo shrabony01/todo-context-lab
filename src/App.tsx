@@ -23,12 +23,12 @@ const MainContent: React.FC = () => {
     <div className={`app-container ${theme}`}>
       <div className="card">
         <header className="app-header">
-          <h1>Todo App</h1>
+          <h1 className="app-title">Todo App<br /><span>(Context API)</span></h1>
           <ThemeToggleButton />
         </header>
         <TodoInput />
-        <TodoList />
         <FilterButtons />
+        <TodoList />
       </div>
     </div>
   );

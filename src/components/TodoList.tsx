@@ -4,7 +4,7 @@ import { useFilter } from '../context/FilterContext';
 import { TodoItem } from './TodoItem';
 
 export const TodoList: React.FC = () => {
-  const { todos } = useTodos();
+  const { todos, clearCompleted } = useTodos();
   const { filter } = useFilter();
 
   const filteredTodos = useMemo(() => {
@@ -19,15 +19,29 @@ export const TodoList: React.FC = () => {
     }
   }, [todos, filter]);
 
-  if (todos.length === 0) {
-    return <p className="empty-message">No tasks yet! Add one above.</p>;
-  }
+  const activeCount = todos.filter((t) => !t.completed).length;
+  const completedCount = todos.filter((t) => t.completed).length;
 
   return (
+  <div className="todo-list-container todo-list-card">
     <ul className="todo-list">
       {filteredTodos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
     </ul>
-  );
+
+    {todos.length > 0 && (
+      <footer className="todo-footer">
+        <span className="todo-count">
+          <strong>{activeCount}</strong> {activeCount === 1 ? 'item' : 'items'} left
+        </span>
+        {completedCount > 0 && (
+          <button onClick={clearCompleted} className="clear-completed-btn">
+            Clear Completed ({completedCount})
+          </button>
+        )}
+      </footer>
+    )}
+  </div>
+);
 };
