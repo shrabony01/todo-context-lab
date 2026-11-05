@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useMemo, useCallback } from 'react';
-import { Todo, TodoContextType } from '../types/todo';
+import type { Todo, TodoContextType } from '../types/todo';
 
 const TodoContext = createContext<TodoContextType | null>(null);
 
